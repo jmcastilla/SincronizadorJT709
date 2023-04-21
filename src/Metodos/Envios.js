@@ -34,12 +34,8 @@ async function SendMailErroresPlataforma(mensaje, asunto, text){
 
 async function SendMail(dato, mensaje, evento, tipo, id, alerta, idmensaje){
     try{
-        console.log("entro a sendmail");
         var contactos = await Alertas.ListaDeContacts(dato.contrato, "Mail", alerta);
-        console.log(contactos);
         var contactosProyecto = await Alertas.ListaCorreosPorProyecto(dato.contrato, "Mail", alerta);
-        console.log(dato.contrato+" - "+ alerta);
-        console.log(contactosProyecto);
         var contactostotales="";
         var contactoslist = await Util.convertCsv(contactos);
         var contactoslist2 = await Util.convertCsv(contactosProyecto);
@@ -209,7 +205,6 @@ async function EnvioCorreo(mensaje, contactos, asunto){
         subject: asunto, // Subject line
         html: mensaje // html body
     }).then(async info => {
-        console.log(info);
         if(info.response.toString().includes("2.0.0 OK")){
             return true;
         }else{
@@ -291,7 +286,6 @@ async function SendSMSEclipsoft(numeros, mensaje, id, contrato, horaenvio){
             });
         }
     });*/
-    console.log("ENVIOOOOOOOOO ECUADORRRRRRR************");
 }
 
 module.exports = {

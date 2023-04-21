@@ -12,13 +12,11 @@ async function binarioParseado(hex, posicion){
 }
 
 function formatdate(date){
-    console.log("entro="+date);
     try{
         date=moment(date).format('YYYY-MM-DD HH:mm:ss');
         if(date === "Invalid date"){
             date=moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
         }
-        console.log("salio1="+date);
         return date;
     }catch(error){
 

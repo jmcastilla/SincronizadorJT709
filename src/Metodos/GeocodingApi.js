@@ -85,7 +85,6 @@ async function DistanciaHere(lat1, lng1, lat2, lng2){
         objeto.distanciakm=await MetrosToKilometros(consumo.route[0].summary.distance);
     })
     .catch(function (error) {
-        console.log(error);
         return objeto;
     });
     return objeto;

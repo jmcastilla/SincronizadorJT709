@@ -101,7 +101,6 @@ async function Comprobar(listaMensajes, idServer, sufijo, dd){
 
                 //logger.info("Dispositivo creado ("+(new Date()-start)+" ms)");
             }
-            console.log(dato.dateTime);
             dato.dateTime=Util.formatdate(dato.dateTime);
             dato.unixDate = await Util.toUnixTime(dato.dateTime);
             dato.nombreServer= idServer;
@@ -273,13 +272,11 @@ async function CrearMensaje2(dato){
 var cron = require('cron');
 
 var job = new cron.CronJob('0 * * * * *', function() {
-    console.log("inicio el cron");
     let date_ob = new Date();
   	for(var i=0; i<10; i++){
         var dateproceso=procesos[i];
 
         let resta = (date_ob.getTime() - dateproceso.getTime());
-        console.log(dateproceso+" - "+date_ob+" - "+resta);
         if(resta>=120000){
             Log.saveLog("Se detuvo el proceso "+i);
             setTimeout(Principal, 1000, server, i);

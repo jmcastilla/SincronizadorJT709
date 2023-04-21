@@ -126,8 +126,6 @@ async function InfoMensaje(dato){
         "WHERE FKLokDeviceID = '" + dato.deviceID + "' AND Active = 1";
         const mensaje = await sqlconfig.query(consulta);
         var array = mensaje.recordset;
-        console.log(consulta);
-        console.log(mensaje);
         if(array.length > 0){
             dato.contrato= array[0].ContractID;
             dato.vehicleID = array[0].PlacaTruck;
@@ -187,7 +185,6 @@ async function LeerVarios(dato){
         distanciaOrigen = await Geografia.DistanciaRutaOrigenXY(dato.latitude, dato.longitude, ruta);
         var deltadistancia = kmAnterior - distanciaOrigen;
         const bitpruebaruta = await Geografia.BitPruebaRuta(dato.deviceID);
-        console.log(bitpruebaruta+" - "+deltadistancia+" - "+ciudadOrigen+" - "+ciudadDestino+" - "+distanciaOrigen);
         /*if(!bitpruebaruta){
             distanciaRuta=await Geografia.DistanciaRutasxy(dato.latitude, dato.longitude, ruta);
             if(ciudadDestino != 0 && ciudadOrigen != 0 && distanciaRuta >= km){
@@ -201,9 +198,7 @@ async function LeerVarios(dato){
             }
         }*/
         if(dato.trayecto != 0){
-            console.log("********* ENTRO A TRAYECTO *************");
             dato = await Geografia.ComprobarRuta(dato);
-            console.log(dato);
         }
 
         if(deltadistancia >= 2){

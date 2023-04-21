@@ -105,11 +105,9 @@ async function ComprobarRuta(dato){
     var listado=[];
     var obj;
     var polylineaArray = trayecto.Polyline.split("||||");
-    console.log("kmrecorrido="+kmrecorrido);
     var polyseleccionada=polylineaArray.length-1;
     if(trayecto.WayPoints != ""){
-      console.log("entro a waypoints");
-        
+
         var wp = trayecto.WayPoints.split("|");
         for(var i =0; i< wp.length; i++){
             var punto = wp[i].split(",");
@@ -163,7 +161,6 @@ async function ComprobarRuta(dato){
 
 async function estaEnRuta(obj){
     const res=await gmAPI.directions(obj);
-    console.log(res);
     return res;
 }
 
@@ -201,7 +198,6 @@ async function RutaEstaEnCerca(lat, lng, ruta){
         var consulta="SELECT Puntos FROM TramosRutas INNER JOIN Tramos ON TramosRutas.IDTramo = Tramos.ID WHERE IDRUTA =" + ruta + " ORDER BY TramosRutas.Orden";;
         const resultado = await sqlconfig.query(consulta);
         var array = resultado.recordset;
-        console.log(array);
         if(array.length > 0){
 
             var listaVertices=new Array();
@@ -216,7 +212,6 @@ async function RutaEstaEnCerca(lat, lng, ruta){
                       listaVertices.push(objeto);
                   }
             }
-            console.log(listaVertices);
         }
         var inPoly = false;
         var m = listaVertices.length-1;
