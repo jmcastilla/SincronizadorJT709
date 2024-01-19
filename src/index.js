@@ -40,7 +40,7 @@ const logger = winston.createLogger({
 });
 
 var procesos = new Array();
-var server="Srv_JT-2";
+var server="Srv_JT-1";
 Principal(server,1);
 Principal(server,2);
 Principal(server,3);
@@ -184,7 +184,9 @@ async function Comprobar(listaMensajes, idServer, sufijo, dd){
 
                 //logger.info("finalizo procesos internos8 ("+(new Date()-start)+" ms)");
                 //OBTENGO POSICIÓN
-                dato = await Geocoding.SetPosition(dato, dato.pais, dato.departamento, dato.ciudad, dato.location);
+                if(Constantes.entorno == 'PROD'){
+                    dato = await Geocoding.SetPosition(dato, dato.pais, dato.departamento, dato.ciudad, dato.location);
+                }
                 //logger.info("Obtener posicion ("+(new Date()-start)+" ms)");
                 //console.log(dato);
                 if(dato.lat_d != 0 && dato.lng_d != 0){
@@ -208,7 +210,9 @@ async function Comprobar(listaMensajes, idServer, sufijo, dd){
             if(dato.alertasActivas && dato.actualizar){
 
                 //console.log("entro a alertas");
-                //await Alertas.CentroDeAlertas(dato);
+                if(Constantes.entorno == 'PROD'){
+                    await Alertas.CentroDeAlertas(dato);
+                }
                 //logger.info("centro de alertas ("+(new Date()-start)+" ms)");
             }
             //console.log(dato);

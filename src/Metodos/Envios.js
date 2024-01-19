@@ -201,7 +201,7 @@ async function EnvioCorreo(mensaje, contactos, asunto){
 
     transporter.sendMail({
         from: 'info4@logiseguridad.com', // sender address
-        to: 'jfberrio@yahoo.com', // list of receivers
+        to: contactos, // list of receivers
         subject: asunto, // Subject line
         html: mensaje // html body
     }).then(async info => {
@@ -227,7 +227,7 @@ async function EnvioCorreo2(mensaje, contactos, asunto){
 
     transporter.sendMail({
         from: 'info2@logiseguridad.com', // sender address
-        to: 'jfberrio@yahoo.com', // list of receivers
+        to: contactos, // list of receivers
         subject: asunto, // Subject line
         html: mensaje, // html body
     }).then(info => {

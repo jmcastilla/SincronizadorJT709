@@ -4,8 +4,9 @@ var keyHereIDApi="iCBtIBE6CmnZcaUtjlABfykMrrySIeAjgRu-yn7DzNg";
 var idProyectosEcuador= "|9|-|11|-|16|";
 var minSpeed = 5;
 var checkPosicion = true;
-var bitactualizado = "actualizado3";
-var sufijo = "D";
+var bitactualizado = "actualizado2";
+var sufijo = "A";
+var entorno = "PROD";
 module.exports = {
     "serviceCode": serviceCode,
     "keyHereIDApi": keyHereIDApi,
@@ -13,5 +14,6 @@ module.exports = {
     "minSpeed": minSpeed,
     "checkPosicion": checkPosicion,
     "bitactualizado": bitactualizado,
-    "sufijo": sufijo
+    "sufijo": sufijo,
+    "entorno": entorno
 }

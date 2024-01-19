@@ -6,7 +6,7 @@ var sql = require("mssql");
 var config = {
     user: 'juan',
     password: 'Logiset.1',
-    server: 'LOGI-SQL',
+    server: '1111009-DBSRV',
     database: 'infocarga',
     synchronize: true,
     trustServerCertificate: true,
@@ -17,8 +17,8 @@ var config = {
 var config2 = {
     user: 'juan',
     password: 'Logiset.1',
-    server: 'LOGI-SQL',
-    database: 'reportes',
+    server: '1111009-DBSRV',
+    database: 'reportes2',
     synchronize: true,
     trustServerCertificate: true,
     connectionTimeout: 60000,
@@ -53,6 +53,7 @@ let procedure_registroSmsColombia = function( sqlv, numeros, mensaje, contrato )
 
             if (err) console.log(err);
             var request = new sql.Request();
+            console.log(numeros);
             request.input('celulares', sql.NVarChar(4000), numeros);
             request.input('contrato', sql.NVarChar(20), contrato);
             request.input('mensaje', sql.NVarChar(500), mensaje);
@@ -167,7 +168,8 @@ let crearMensajeReportes = async function( sqlv, dato ) {
         request.input('Pais', sql.NVarChar(50), await Util.vacioToNull(dato.pais));
         request.input('Edad', sql.NVarChar(5), "Nueva");
         request.input('Evento', sql.NVarChar(50), dato.evento);
-        request.input('DateTimeUTC', sql.BigInt, dato.unixDate);
+        request.input('DateTimeUTC', sql.BigInt, dato.unixDate);        
+        console.log(dato.dateTime);
         request.input('DateTimeNormal', sql.DateTime, Util.formatdate(await Util.addHourDate(dato.dateTime,-7)));
         //request.input('DateTimeNormal', sql.DateTime, '2022-11-23 03:08:00');
         request.input('Velocidad', sql.Float, dato.speed);
