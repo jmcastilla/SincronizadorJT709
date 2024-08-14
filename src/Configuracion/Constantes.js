@@ -6,7 +6,7 @@ var minSpeed = 5;
 var checkPosicion = true;
 var bitactualizado = "actualizado2";
 var sufijo = "A";
-var entorno = "PROD";
+var entorno = "TEST";
 module.exports = {
     "serviceCode": serviceCode,
     "keyHereIDApi": keyHereIDApi,
