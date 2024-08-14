@@ -1,5 +1,5 @@
 
-var serviceCode="SYNCJT701";
+var serviceCode="SYNCJT709";
 var keyHereIDApi="iCBtIBE6CmnZcaUtjlABfykMrrySIeAjgRu-yn7DzNg";
 var idProyectosEcuador= "|9|-|11|-|16|";
 var minSpeed = 5;

@@ -40,7 +40,7 @@ const logger = winston.createLogger({
 });
 
 var procesos = new Array();
-var server="Srv_JT-1";
+var server="Srv_JT709-1";
 Principal(server,1);
 Principal(server,2);
 Principal(server,3);
@@ -106,7 +106,7 @@ async function Comprobar(listaMensajes, idServer, sufijo, dd){
             dato.nombreServer= idServer;
             dato.sufijo = sufijo;
             dato.csq = dato.gsmquality;
-            dato.estadoGuaya= parseInt(await Util.binarioParseado(dato.devicestatus,12));
+            dato.estadoGuaya= dato.locked;
             dato.gpsStatus=0;
             if(dato.gsmquality > 0){
                 dato.gpsStatus=1;
@@ -249,13 +249,8 @@ async function Comprobar(listaMensajes, idServer, sufijo, dd){
 //FUNCION QUE DEVUELVE LA LISTA DE MENSAJES
 async function ListadoMensajes(dd, cantidadregistros){
 
-    var consulta= "select * ";
-    consulta += "from ((select CONCAT(CAST(m.maindataID as CHAR(50)), 'M') as maindataID, m.deviceID, CONVERT(m.dateTime, CHAR) dateTime, insertDateTime, m.latitude, m.longitude, m.speed, m.satquality, m.battery, m.gsmquality, -1 as locked, 0 as evento, m.devicestatus, m."+Constantes.bitactualizado+" ";
-    consulta += "from maindata m WHERE m."+Constantes.bitactualizado+" = 0) ";
-    consulta += "union all ";
-    consulta += "(select CONCAT(CAST(l.lockdataID as CHAR(50)), 'A') as maindataID, l.deviceID, CONVERT(l.dateTime, CHAR) dateTime, insertDateTime, l.latitude, l.longitude, l.speed, 5, 99, 0 as gsmquality, l.unlockstatus as locked, l.eventsource as evento, '' as devicestatus, l."+Constantes.bitactualizado+" ";
-    consulta += "from lockdata l WHERE l."+Constantes.bitactualizado+" = 0)) x ";
-
+    var consulta= "select CONCAT(CAST(m.maindataID as CHAR(50)), 'M') as maindataID, m.deviceID, CONVERT(m.dateTime, CHAR) dateTime, insertDateTime, m.latitude, m.longitude, m.speed, m.satquality, m.battery, m.gsmquality, lock_status as locked, code_event as evento, '' as m.devicestatus, m."+Constantes.bitactualizado+" ";
+    consulta += "from mainData m WHERE m."+Constantes.bitactualizado+" = 0) ";
     if(dd == "*"){
         consulta += "order by dateTime asc Limit "+cantidadregistros;
     }else{

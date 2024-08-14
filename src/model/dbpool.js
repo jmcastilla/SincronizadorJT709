@@ -6,7 +6,7 @@ var sql = require("mssql");
 var config = {
     user: 'juan',
     password: 'Logiset.1',
-    server: '1111009-DBSRV',
+    server: 'LOGI-SQL',
     database: 'infocarga',
     synchronize: true,
     trustServerCertificate: true,
@@ -17,7 +17,7 @@ var config = {
 var config2 = {
     user: 'juan',
     password: 'Logiset.1',
-    server: '1111009-DBSRV',
+    server: 'LOGI-SQL',
     database: 'reportes2',
     synchronize: true,
     trustServerCertificate: true,
@@ -168,7 +168,7 @@ let crearMensajeReportes = async function( sqlv, dato ) {
         request.input('Pais', sql.NVarChar(50), await Util.vacioToNull(dato.pais));
         request.input('Edad', sql.NVarChar(5), "Nueva");
         request.input('Evento', sql.NVarChar(50), dato.evento);
-        request.input('DateTimeUTC', sql.BigInt, dato.unixDate);        
+        request.input('DateTimeUTC', sql.BigInt, dato.unixDate);
         console.log(dato.dateTime);
         request.input('DateTimeNormal', sql.DateTime, Util.formatdate(await Util.addHourDate(dato.dateTime,-7)));
         //request.input('DateTimeNormal', sql.DateTime, '2022-11-23 03:08:00');
