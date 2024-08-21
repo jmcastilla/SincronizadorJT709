@@ -26,10 +26,27 @@ async function CrearEquipo(device, tipoequipo){
 async function LeerApertura(dato){
     try{
         const antesCambiar = await UltAlerta(dato.deviceID, "Locked");
-
+        console.log(dato);
         dato.ultAlerta = antesCambiar.recordset[0].locked;
+        console.log(dato.ultAlerta+" - "+dato.flag_Lock);
+        if(dato.flag_Lock == 1 && !dato.ultAlerta){
+            console.log("entro1");
+            dato.locked=true;
+            dato.evento="Cierre";
+            dato.hasAlert=true;
+        }else if(dato.flag_Lock == 0 && dato.ultAlerta){
+            console.log("entro2");
+            dato.locked=false;
+            dato.evento="Apertura";
+            dato.hasAlert=true;
+        }else{
+          console.log("entro3");
+          dato.locked = dato.ultAlerta;
+          dato.evento="";
+          dato.hasAlert=false;
+        }
 
-        if(dato.flag_Lock == -1){
+        /*if(dato.flag_Lock == -1){
             if(dato.estadoGuaya == 1 && dato.ultAlerta){
                 dato.locked=false;
                 dato.evento="Apertura";
@@ -51,7 +68,7 @@ async function LeerApertura(dato){
             dato.locked = dato.ultAlerta;
             dato.evento="";
             dato.hasAlert=false;
-        }
+        }*/
         return dato;
     }catch(error){
     }
@@ -267,13 +284,12 @@ async function GuardarEjecucion(){
 }
 
 async function ActualizarOrigen(ID){
+
     try{
         var id_ = ID.substring(0, ID.length - 1);
         var flag = ID.slice(-1);
-        var consulta="UPDATE maindata SET "+Constantes.bitactualizado+"= 1 WHERE maindataID="+id_;
-        if(flag == "A"){
-            consulta="UPDATE lockdata SET "+Constantes.bitactualizado+"= 1 WHERE lockdataID="+id_;
-        }
+        var consulta="UPDATE mainData SET "+Constantes.bitactualizado+"= 1 WHERE maindataID="+id_;
+        console.log(consulta);
         const mensaje = await query(consulta);
 
         if(mensaje.affectedRows > 0){

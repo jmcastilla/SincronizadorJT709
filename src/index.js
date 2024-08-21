@@ -106,12 +106,18 @@ async function Comprobar(listaMensajes, idServer, sufijo, dd){
             dato.nombreServer= idServer;
             dato.sufijo = sufijo;
             dato.csq = dato.gsmquality;
-            dato.estadoGuaya= dato.locked;
+            dato.estadoGuaya= dato.locked[0];
+            dato.flag_Lock=dato.locked[0];
+            if(dato.evento === "0c" || dato.evento === "12"){
+                dato.estadoGuaya= 0;
+                dato.flag_Lock=0;
+            }
+
             dato.gpsStatus=0;
             if(dato.gsmquality > 0){
                 dato.gpsStatus=1;
             }
-            dato.flag_Lock=dato.locked;
+
             dato.dataID = 0;
             try{
                 dato.dataID = parseInt(dato.mwDataID);
@@ -250,11 +256,11 @@ async function Comprobar(listaMensajes, idServer, sufijo, dd){
 async function ListadoMensajes(dd, cantidadregistros){
 
     var consulta= "select CONCAT(CAST(m.maindataID as CHAR(50)), 'M') as maindataID, m.deviceID, CONVERT(m.dateTime, CHAR) dateTime, insertDateTime, m.latitude, m.longitude, m.speed, m.satquality, m.battery, m.gsmquality, lock_status as locked, code_event as evento, '' as m.devicestatus, m."+Constantes.bitactualizado+" ";
-    consulta += "from mainData m WHERE m."+Constantes.bitactualizado+" = 0) ";
+    consulta += "from mainData m WHERE m."+Constantes.bitactualizado+" = 0 ";
     if(dd == "*"){
         consulta += "order by dateTime asc Limit "+cantidadregistros;
     }else{
-        consulta += "WHERE RIGHT(CONVERT(x.deviceID, CHAR), 1) = '"+dd+"' order by  dateTime asc Limit "+cantidadregistros;
+        consulta += "AND RIGHT(CONVERT(x.deviceID, CHAR), 1) = '"+dd+"' order by  dateTime asc Limit "+cantidadregistros;
     }
     return await query(consulta);
 }
